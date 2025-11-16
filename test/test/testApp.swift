@@ -2,7 +2,7 @@
 //  testApp.swift
 //  test
 //
-//  Created by Shuhei Kinugasa on 2025/11/01.
+//  Updated for Receipt OCR with Camera & Photo Library support
 //
 
 import SwiftUI

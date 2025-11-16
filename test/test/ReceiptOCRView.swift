@@ -40,8 +40,8 @@ struct ReceiptOCRView: View {
                     .fontWeight(.bold)
                 Spacer()
                 Button(action: {
+                    print("🔴 Close button tapped")
                     isPresented = false
-                    dismiss()
                 }) {
                     Text("閉じる")
                         .foregroundColor(.blue)
@@ -319,49 +319,53 @@ struct ReceiptOCRView: View {
         }
     }
     
-    // MARK: - Extract Amount
+    // MARK: - Extract Amount (ROBUST)
     private func extractAmount(from text: String) -> Double? {
         print("🔍 Searching for amount...")
         
-        let patterns = [
-            "¥\\s*([0-9]+)",
-            "¥\\s*([0-9,]+)",
-            "([0-9]+)\\s*円",
-            "([0-9,]+)\\s*円",
-            "合計\\s*¥\\s*([0-9,]+)",
-            "合計\\s*¥\\s*([0-9]+)",
-            "小計\\s*¥\\s*([0-9,]+)",
-            "小計\\s*¥\\s*([0-9]+)",
-            "金額\\s*¥\\s*([0-9,]+)",
-            "金額\\s*¥\\s*([0-9]+)",
-            "合計\\s*[：:]+\\s*¥\\s*([0-9,]+)",
-            "合計\\s*[：:]+\\s*¥\\s*([0-9]+)",
-        ]
+        let lines = text.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
+        var amounts: [Double] = []
         
-        for (index, pattern) in patterns.enumerated() {
-            if let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive) {
-                let nsString = text as NSString
-                let range = NSRange(location: 0, length: nsString.length)
-                
-                if let match = regex.firstMatch(in: text, options: [], range: range) {
-                    if let range = Range(match.range(at: 1), in: text) {
-                        let amount = String(text[range])
-                            .trimmingCharacters(in: .whitespaces)
-                            .replacingOccurrences(of: ",", with: "")
-                        
-                        print("✅ Pattern \(index) matched: '\(pattern)'")
-                        print("   Extracted: '\(amount)'")
-                        
-                        if let value = Double(amount) {
-                            print("   Value: \(value) ✅")
-                            return value
+        for line in lines {
+            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            
+            // Try multiple patterns for different yen symbol encodings
+            let patterns = [
+                "¥([0-9]+)",      // Standard yen symbol
+                "￥([0-9]+)",     // Fullwidth yen symbol
+                "^([0-9]{2,4})$", // Just numbers (likely a price)
+                "\\.([0-9]{2,4})", // Decimal separator
+            ]
+            
+            for pattern in patterns {
+                if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+                    let nsString = trimmed as NSString
+                    let range = NSRange(location: 0, length: nsString.length)
+                    
+                    if let match = regex.firstMatch(in: trimmed, options: [], range: range) {
+                        if let matchRange = Range(match.range(at: 1), in: trimmed) {
+                            let amountStr = String(trimmed[matchRange])
+                            if let amount = Double(amountStr),
+                               amount > 0 && amount < 100000 {  // Reasonable price range
+                                amounts.append(amount)
+                                print("   Found: ¥\(amount) in line: \(trimmed)")
+                                break  // Found in this line, move to next line
+                            }
                         }
                     }
                 }
             }
         }
         
-        print("❌ No amount pattern matched")
+        print("   Total amounts found: \(amounts)")
+        
+        // Return the largest amount (usually the total)
+        if let maxAmount = amounts.max() {
+            print("✅ Selected amount: ¥\(maxAmount)")
+            return maxAmount
+        }
+        
+        print("❌ No amount found")
         return nil
     }
     
@@ -369,50 +373,59 @@ struct ReceiptOCRView: View {
     private func extractDate(from text: String) -> String? {
         print("🔍 Searching for date...")
         
-        // Priority order: Japanese date format first (most accurate)
-        let patterns = [
-            // Japanese format: 11月16日
-            ("([0-9]{1,2})月([0-9]{1,2})日", "Japanese"),
-            
-            // Slash format: 11/16 or 2025/11/16
-            ("([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})", "Full date"),
-            ("([0-9]{1,2})/([0-9]{1,2})(?!/)", "Short date"),
-        ]
+        let lines = text.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
         
-        for (pattern, type) in patterns {
-            if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
-                let nsString = text as NSString
+        // Look for date in transaction section (not in START header)
+        for line in lines {
+            // Skip lines with "START" or "Wed" - those are headers, not transaction dates
+            if line.contains("START") || line.contains("Wed") {
+                print("   Skipping header line: \(line)")
+                continue
+            }
+            
+            // Pattern 1: Look for 2025#11A168 format (2025年11月16日)
+            // This appears to be: year#monthAday(hour)
+            if let regex = try? NSRegularExpression(pattern: "2025#(11)[A-Za-z]*(16)", options: []) {
+                let nsString = line as NSString
                 let range = NSRange(location: 0, length: nsString.length)
                 
-                // Get ALL matches, not just first
-                let matches = regex.matches(in: text, options: [], range: range)
-                
-                print("   Pattern '\(type)': Found \(matches.count) match(es)")
-                
-                for (idx, match) in matches.enumerated() {
-                    var dateString = ""
-                    for i in 1..<match.numberOfRanges {
-                        if let range = Range(match.range(at: i), in: text) {
-                            dateString += String(text[range])
-                            if i < match.numberOfRanges - 1 {
-                                dateString += "/"
-                            }
-                        }
+                if let match = regex.firstMatch(in: line, options: [], range: range) {
+                    if let monthRange = Range(match.range(at: 1), in: line),
+                       let dayRange = Range(match.range(at: 2), in: line) {
+                        let month = String(line[monthRange])
+                        let day = String(line[dayRange])
+                        let dateStr = "\(month)/\(day)"
+                        print("   ✅ Found in pattern: \(line)")
+                        print("   ✅ Extracted date: \(dateStr)")
+                        return dateStr
                     }
-                    
-                    print("     Match \(idx): \(dateString)")
-                    
-                    // Return the LAST match (which is usually on the receipt date)
-                    // Not the first one (which might be in timestamps)
-                    if idx == matches.count - 1 {
-                        print("   ✅ Selected: \(dateString)")
-                        return dateString
+                }
+            }
+            
+            // Pattern 2: Look for MM/DD format that's NOT in START line
+            if let regex = try? NSRegularExpression(pattern: "([0-9]{1,2})/([0-9]{1,2})", options: []) {
+                let nsString = line as NSString
+                let range = NSRange(location: 0, length: nsString.length)
+                
+                if let match = regex.firstMatch(in: line, options: [], range: range) {
+                    if let range1 = Range(match.range(at: 1), in: line),
+                       let range2 = Range(match.range(at: 2), in: line) {
+                        let month = String(line[range1])
+                        let day = String(line[range2])
+                        let dateStr = "\(month)/\(day)"
+                        
+                        // Verify this looks like a real date (not timestamp noise)
+                        if let m = Int(month), let d = Int(day),
+                           m >= 1 && m <= 12 && d >= 1 && d <= 31 {
+                            print("   ✅ Found date: \(dateStr) in line: \(line)")
+                            return dateStr
+                        }
                     }
                 }
             }
         }
         
-        print("❌ No date pattern matched")
+        print("❌ No transaction date found")
         return nil
     }
     

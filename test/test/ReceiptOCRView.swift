@@ -1,6 +1,6 @@
 //
 //  ReceiptOCRView.swift
-//  test - Receipt OCR View Component - COMPLETE FIX
+//  test - Receipt OCR View Component - FIXED CLOSE & AMOUNT
 //
 
 import SwiftUI
@@ -32,197 +32,201 @@ struct ReceiptOCRView: View {
     }
     
     var body: some View {
-        VStack(spacing: 16) {
-            // MARK: - Header with Close
-            HStack {
-                Text("レシートを読み取り")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                Spacer()
-                Button(action: {
-                    print("🔴 Close button tapped")
-                    isPresented = false
-                }) {
-                    Text("閉じる")
+        ZStack {
+            VStack(spacing: 0) {
+                // MARK: - Header with Close
+                HStack {
+                    Text("レシートを読み取り")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    Spacer()
+                    Button(action: closeView) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "xmark")
+                            Text("閉じる")
+                        }
                         .foregroundColor(.blue)
                         .fontWeight(.semibold)
+                    }
                 }
-            }
-            .padding()
-            
-            // MARK: - Image Preview
-            if let image = selectedImage {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxHeight: 250)
-                    .cornerRadius(8)
-                    .border(Color.blue, width: 2)
-                    .padding()
-            }
-            
-            ScrollView {
-                // MARK: - Results Display
-                if let data = receiptData {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("✅ OCR Results")
-                            .font(.headline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        // Amount
-                        HStack {
-                            Text("金額:")
-                                .fontWeight(.semibold)
-                            Spacer()
-                            if let amount = data.amount {
-                                Text("¥\(String(format: "%.0f", amount))")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("未検出")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.orange)
-                            }
+                .padding()
+                .background(Color(.systemBackground))
+                
+                ScrollView {
+                    VStack(spacing: 16) {
+                        // MARK: - Image Preview
+                        if let image = selectedImage {
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxHeight: 250)
+                                .cornerRadius(8)
+                                .border(Color.blue, width: 2)
                         }
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(6)
                         
-                        // Date - IMPROVED
-                        HStack {
-                            Text("日付:")
-                                .fontWeight(.semibold)
-                            Spacer()
-                            if let dateStr = data.dateString {
-                                Text(dateStr)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("未検出")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.orange)
-                            }
-                        }
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(6)
-                        
-                        // Category
-                        HStack {
-                            Text("カテゴリー:")
-                                .fontWeight(.semibold)
-                            Spacer()
-                            if let category = data.category {
-                                Text(category)
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("未検出")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(.orange)
-                            }
-                        }
-                        .padding(10)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(6)
-                        
-                        // Full Debug Text
-                        if !rawText.isEmpty {
-                            VStack(alignment: .leading, spacing: 8) {
-                                Button(action: { showFullDebugText.toggle() }) {
-                                    HStack {
-                                        Text("🔍 Detected Text (for debugging):")
-                                            .font(.caption2)
+                        // MARK: - Results Display
+                        if let data = receiptData {
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("✅ OCR Results")
+                                    .font(.headline)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                // Amount
+                                HStack {
+                                    Text("金額:")
+                                        .fontWeight(.semibold)
+                                    Spacer()
+                                    if let amount = data.amount {
+                                        Text("¥\(String(format: "%.0f", amount))")
                                             .fontWeight(.bold)
-                                        Spacer()
-                                        Image(systemName: showFullDebugText ? "chevron.up" : "chevron.down")
-                                            .font(.caption)
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Text("未検出")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.orange)
                                     }
                                 }
-                                .foregroundColor(.primary)
+                                .padding(10)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(6)
                                 
-                                if showFullDebugText {
-                                    Text(rawText)
-                                        .font(.caption2)
-                                        .foregroundColor(.gray)
-                                        .padding(8)
-                                        .background(Color(.systemGray6))
-                                        .cornerRadius(4)
-                                        .frame(maxHeight: 300)
-                                        .lineLimit(nil)
+                                // Date
+                                HStack {
+                                    Text("日付:")
+                                        .fontWeight(.semibold)
+                                    Spacer()
+                                    if let dateStr = data.dateString {
+                                        Text(dateStr)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Text("未検出")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.orange)
+                                    }
+                                }
+                                .padding(10)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(6)
+                                
+                                // Category
+                                HStack {
+                                    Text("カテゴリー:")
+                                        .fontWeight(.semibold)
+                                    Spacer()
+                                    if let category = data.category {
+                                        Text(category)
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.green)
+                                    } else {
+                                        Text("未検出")
+                                            .fontWeight(.bold)
+                                            .foregroundColor(.orange)
+                                    }
+                                }
+                                .padding(10)
+                                .background(Color(.systemGray6))
+                                .cornerRadius(6)
+                                
+                                // Debug Text
+                                if !rawText.isEmpty {
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        Button(action: { showFullDebugText.toggle() }) {
+                                            HStack {
+                                                Text("🔍 Detected Text:")
+                                                    .font(.caption2)
+                                                    .fontWeight(.bold)
+                                                Spacer()
+                                                Image(systemName: showFullDebugText ? "chevron.up" : "chevron.down")
+                                                    .font(.caption)
+                                            }
+                                        }
+                                        .foregroundColor(.primary)
+                                        
+                                        if showFullDebugText {
+                                            Text(rawText)
+                                                .font(.caption2)
+                                                .foregroundColor(.gray)
+                                                .padding(8)
+                                                .background(Color(.systemGray6))
+                                                .cornerRadius(4)
+                                                .frame(maxHeight: 300)
+                                                .lineLimit(nil)
+                                        }
+                                    }
+                                }
+                                
+                                HStack(spacing: 10) {
+                                    Button(action: confirmData) {
+                                        Text("✅ 確認")
+                                            .frame(maxWidth: .infinity)
+                                            .padding(10)
+                                    }
+                                    .buttonStyle(.bordered)
+                                    
+                                    Button(action: {
+                                        selectedImage = nil
+                                        receiptData = nil
+                                        errorMessage = nil
+                                        rawText = ""
+                                        showFullDebugText = false
+                                    }) {
+                                        Text("🔄 再度スキャン")
+                                            .frame(maxWidth: .infinity)
+                                            .padding(10)
+                                    }
+                                    .buttonStyle(.bordered)
                                 }
                             }
+                            .padding()
+                            .background(Color.green.opacity(0.1))
+                            .cornerRadius(8)
+                        } else if isProcessing {
+                            VStack(spacing: 12) {
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                                Text("🔄 処理中...")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                        } else if let error = errorMessage {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Label("❌ エラー", systemImage: "exclamationmark.circle")
+                                    .font(.headline)
+                                Text(error)
+                                    .font(.caption)
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
+                            .background(Color.red.opacity(0.1))
+                            .cornerRadius(8)
+                        } else {
+                            VStack(spacing: 15) {
+                                Button(action: { showCamera = true }) {
+                                    Label("📷 カメラ", systemImage: "camera.fill")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(12)
+                                }
+                                .buttonStyle(.bordered)
+                                
+                                Button(action: { showPhotoLibrary = true }) {
+                                    Label("🖼️ 写真ライブラリ", systemImage: "photo.fill")
+                                        .frame(maxWidth: .infinity)
+                                        .padding(12)
+                                }
+                                .buttonStyle(.bordered)
+                            }
+                            .padding()
                         }
                         
-                        HStack(spacing: 10) {
-                            Button(action: confirmData) {
-                                Text("✅ 確認")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(10)
-                            }
-                            .buttonStyle(.bordered)
-                            
-                            Button(action: {
-                                selectedImage = nil
-                                receiptData = nil
-                                errorMessage = nil
-                                rawText = ""
-                                showFullDebugText = false
-                            }) {
-                                Text("🔄 再度スキャン")
-                                    .frame(maxWidth: .infinity)
-                                    .padding(10)
-                            }
-                            .buttonStyle(.bordered)
-                        }
-                    }
-                    .padding()
-                    .background(Color.green.opacity(0.1))
-                    .cornerRadius(8)
-                } else if isProcessing {
-                    VStack(spacing: 12) {
-                        ProgressView()
-                            .scaleEffect(1.5)
-                        Text("🔄 処理中...")
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                } else if let error = errorMessage {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Label("❌ エラー", systemImage: "exclamationmark.circle")
-                            .font(.headline)
-                        Text(error)
-                            .font(.caption)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(Color.red.opacity(0.1))
-                    .cornerRadius(8)
-                } else {
-                    VStack(spacing: 15) {
-                        Button(action: { showCamera = true }) {
-                            Label("📷 カメラ", systemImage: "camera.fill")
-                                .frame(maxWidth: .infinity)
-                                .padding(12)
-                        }
-                        .buttonStyle(.bordered)
-                        
-                        Button(action: { showPhotoLibrary = true }) {
-                            Label("🖼️ 写真ライブラリ", systemImage: "photo.fill")
-                                .frame(maxWidth: .infinity)
-                                .padding(12)
-                        }
-                        .buttonStyle(.bordered)
+                        Spacer()
                     }
                     .padding()
                 }
-                
-                Spacer()
             }
         }
-        .padding()
         .sheet(isPresented: $showCamera) {
             ImagePicker(selectedImage: $selectedImage, sourceType: .camera)
                 .onDisappear {
@@ -239,6 +243,13 @@ struct ReceiptOCRView: View {
                     }
                 }
         }
+    }
+    
+    // MARK: - Close View Function
+    private func closeView() {
+        print("🔴 Close button tapped - dismissing...")
+        isPresented = false
+        dismiss()
     }
     
     // MARK: - Process Receipt with OCR
@@ -274,7 +285,6 @@ struct ReceiptOCRView: View {
                         return
                     }
                     
-                    // MARK: - Extract Text
                     let recognizedTexts = observations.compactMap { observation in
                         observation.topCandidates(1).first?.string ?? ""
                     }
@@ -299,7 +309,6 @@ struct ReceiptOCRView: View {
                         print(String(repeating: "=", count: 80))
                         print("Amount: \(data.amount ?? -1)")
                         print("Date String: \(data.dateString ?? "N/A")")
-                        print("Date Parsed: \(data.date ?? Date())")
                         print("Category: \(data.category ?? "N/A")")
                     }
                 }
@@ -319,7 +328,7 @@ struct ReceiptOCRView: View {
         }
     }
     
-    // MARK: - Extract Amount (ROBUST)
+    // MARK: - Extract Amount (SIMPLIFIED & ROBUST)
     private func extractAmount(from text: String) -> Double? {
         print("🔍 Searching for amount...")
         
@@ -329,14 +338,20 @@ struct ReceiptOCRView: View {
         for line in lines {
             let trimmed = line.trimmingCharacters(in: .whitespaces)
             
-            // Try multiple patterns for different yen symbol encodings
-            let patterns = [
-                "¥([0-9]+)",      // Standard yen symbol
-                "￥([0-9]+)",     // Fullwidth yen symbol
-                "^([0-9]{2,4})$", // Just numbers (likely a price)
-                "\\.([0-9]{2,4})", // Decimal separator
-            ]
+            // Remove any non-digit characters and check if it's a valid number
+            let digitsOnly = trimmed.filter { $0.isNumber }
             
+            if !digitsOnly.isEmpty {
+                // Try to extract yen amounts
+                if let amount = Double(digitsOnly),
+                   amount >= 100 && amount <= 10000 {  // Reasonable price range for coffee
+                    amounts.append(amount)
+                    print("   Found amount: ¥\(amount) from line: '\(trimmed)'")
+                }
+            }
+            
+            // Also try explicit patterns
+            let patterns = ["¥([0-9]+)", "￥([0-9]+)"]
             for pattern in patterns {
                 if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
                     let nsString = trimmed as NSString
@@ -346,10 +361,9 @@ struct ReceiptOCRView: View {
                         if let matchRange = Range(match.range(at: 1), in: trimmed) {
                             let amountStr = String(trimmed[matchRange])
                             if let amount = Double(amountStr),
-                               amount > 0 && amount < 100000 {  // Reasonable price range
+                               amount >= 100 && amount <= 10000 {
                                 amounts.append(amount)
-                                print("   Found: ¥\(amount) in line: \(trimmed)")
-                                break  // Found in this line, move to next line
+                                print("   Found with pattern: ¥\(amount) from: '\(trimmed)'")
                             }
                         }
                     }
@@ -357,9 +371,9 @@ struct ReceiptOCRView: View {
             }
         }
         
-        print("   Total amounts found: \(amounts)")
+        print("   All amounts found: \(amounts)")
         
-        // Return the largest amount (usually the total)
+        // Return the largest amount (usually the total, not tax)
         if let maxAmount = amounts.max() {
             print("✅ Selected amount: ¥\(maxAmount)")
             return maxAmount
@@ -369,23 +383,20 @@ struct ReceiptOCRView: View {
         return nil
     }
     
-    // MARK: - Extract Date (FIXED)
+    // MARK: - Extract Date
     private func extractDate(from text: String) -> String? {
         print("🔍 Searching for date...")
         
         let lines = text.split(separator: "\n", omittingEmptySubsequences: true).map(String.init)
         
-        // Look for date in transaction section (not in START header)
         for line in lines {
-            // Skip lines with "START" or "Wed" - those are headers, not transaction dates
+            // Skip header lines
             if line.contains("START") || line.contains("Wed") {
-                print("   Skipping header line: \(line)")
                 continue
             }
             
-            // Pattern 1: Look for 2025#11A168 format (2025年11月16日)
-            // This appears to be: year#monthAday(hour)
-            if let regex = try? NSRegularExpression(pattern: "2025#(11)[A-Za-z]*(16)", options: []) {
+            // Look for MM/DD pattern
+            if let regex = try? NSRegularExpression(pattern: "([0-9]{1,2})/([0-9]{1,2})", options: []) {
                 let nsString = line as NSString
                 let range = NSRange(location: 0, length: nsString.length)
                 
@@ -394,30 +405,11 @@ struct ReceiptOCRView: View {
                        let dayRange = Range(match.range(at: 2), in: line) {
                         let month = String(line[monthRange])
                         let day = String(line[dayRange])
-                        let dateStr = "\(month)/\(day)"
-                        print("   ✅ Found in pattern: \(line)")
-                        print("   ✅ Extracted date: \(dateStr)")
-                        return dateStr
-                    }
-                }
-            }
-            
-            // Pattern 2: Look for MM/DD format that's NOT in START line
-            if let regex = try? NSRegularExpression(pattern: "([0-9]{1,2})/([0-9]{1,2})", options: []) {
-                let nsString = line as NSString
-                let range = NSRange(location: 0, length: nsString.length)
-                
-                if let match = regex.firstMatch(in: line, options: [], range: range) {
-                    if let range1 = Range(match.range(at: 1), in: line),
-                       let range2 = Range(match.range(at: 2), in: line) {
-                        let month = String(line[range1])
-                        let day = String(line[range2])
-                        let dateStr = "\(month)/\(day)"
                         
-                        // Verify this looks like a real date (not timestamp noise)
                         if let m = Int(month), let d = Int(day),
                            m >= 1 && m <= 12 && d >= 1 && d <= 31 {
-                            print("   ✅ Found date: \(dateStr) in line: \(line)")
+                            let dateStr = "\(month)/\(day)"
+                            print("   ✅ Found date: \(dateStr)")
                             return dateStr
                         }
                     }
@@ -425,7 +417,7 @@ struct ReceiptOCRView: View {
             }
         }
         
-        print("❌ No transaction date found")
+        print("❌ No date found")
         return nil
     }
     
@@ -433,24 +425,20 @@ struct ReceiptOCRView: View {
     private func parseDate(_ dateString: String?) -> Date? {
         guard let dateString = dateString else { return nil }
         
-        let formats = ["M/d", "MM/dd", "yyyy/MM/dd", "yyyy/M/d"]
+        let formats = ["M/d", "MM/dd"]
         let formatter = DateFormatter()
         
         for format in formats {
             formatter.dateFormat = format
             if let date = formatter.date(from: dateString) {
-                // Adjust to current year if only month/day given
-                if !dateString.contains("202") {
-                    let calendar = Calendar.current
-                    let now = Date()
-                    let year = calendar.component(.year, from: now)
-                    var components = calendar.dateComponents([.month, .day], from: date)
-                    components.year = year
-                    if let adjusted = calendar.date(from: components) {
-                        return adjusted
-                    }
+                let calendar = Calendar.current
+                let now = Date()
+                let year = calendar.component(.year, from: now)
+                var components = calendar.dateComponents([.month, .day], from: date)
+                components.year = year
+                if let adjusted = calendar.date(from: components) {
+                    return adjusted
                 }
-                return date
             }
         }
         return nil
@@ -478,8 +466,7 @@ struct ReceiptOCRView: View {
         if let data = receiptData {
             detectedAmount = data.amount
             detectedDate = data.date
-            isPresented = false
-            dismiss()
+            closeView()
         }
     }
 }

@@ -2,7 +2,7 @@
 //  SentenceStudyView.swift
 //  KRTANGOS
 //
-//  Study Korean sentences with tap-to-reveal Japanese translations
+//  Study Korean sentences as a vertical list with tap-to-reveal translations
 //
 
 import Foundation
@@ -18,78 +18,50 @@ struct SentenceStudyView: View {
     )
     private var allSentences: FetchedResults<SentenceItem>
     
-    @State private var currentIndex = 0
-    @State private var isTranslationRevealed = false
     @State private var isLoading = false
     @State private var loadError: String?
+    @State private var expandedSentenceIds: Set<UUID> = []
     
     private let appwriteService = AppwriteService()
-    
-    var currentSentence: SentenceItem? {
-        guard allSentences.indices.contains(currentIndex) else { return nil }
-        return allSentences[currentIndex]
-    }
-    
-    var progress: Double {
-        guard !allSentences.isEmpty else { return 0 }
-        return Double(currentIndex + 1) / Double(allSentences.count)
-    }
     
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
+                // Header with refresh button
+                VStack(spacing: 12) {
+                    HStack {
+                        Text("韓国語の文章")
+                            .font(.title2.bold())
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            Task {
+                                await loadSentencesFromCloud()
+                            }
+                        }) {
+                            Image(systemName: isLoading ? "arrow.clockwise" : "arrow.clockwise")
+                                .rotationEffect(isLoading ? .degrees(360) : .degrees(0))
+                                .animation(isLoading ? .linear(duration: 1).repeatForever(autoreverses: false) : .default, value: isLoading)
+                        }
+                        .disabled(isLoading)
+                    }
+                    .padding()
+                }
+                .background(Color(.systemBackground))
+                
+                // Sentences list
                 if allSentences.isEmpty {
                     emptyStateView
                 } else {
-                    // Progress Section
-                    VStack(spacing: 12) {
-                        HStack {
-                            Text("文章 \(currentIndex + 1) / \(allSentences.count)")
-                                .font(.headline)
-                            
-                            Spacer()
-                            
-                            if let sentence = currentSentence, let source = sentence.source {
-                                Text(source)
-                                    .font(.caption)
-                                    .foregroundColor(.secondary)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(Color(.systemGray5))
-                                    .cornerRadius(6)
+                    ScrollView {
+                        VStack(spacing: 12) {
+                            ForEach(allSentences) { sentence in
+                                sentenceBlock(for: sentence)
                             }
                         }
-                        
-                        ProgressView(value: progress)
-                            .tint(.blue)
-                    }
-                    .padding()
-                    .background(Color(.systemBackground))
-                    
-                    Spacer()
-                    
-                    if let sentence = currentSentence {
-                        sentenceCards(for: sentence)
-                    }
-                    
-                    Spacer()
-                    
-                    // Navigation Buttons
-                    navigationButtons
                         .padding()
-                }
-            }
-            .navigationTitle("韓国語の文章")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        Task {
-                            await loadSentencesFromCloud()
-                        }
-                    }) {
-                        Label("更新", systemImage: "arrow.clockwise")
                     }
-                    .disabled(isLoading)
                 }
             }
             .onAppear {
@@ -156,29 +128,43 @@ struct SentenceStudyView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    private func sentenceCards(for sentence: SentenceItem) -> some View {
-        VStack(spacing: 32) {
-            // Korean Sentence Card
-            VStack(spacing: 16) {
+    private func sentenceBlock(for sentence: SentenceItem) -> some View {
+        let isExpanded = expandedSentenceIds.contains(sentence.id ?? UUID())
+        
+        return VStack(spacing: 0) {
+            // Korean sentence (always visible)
+            VStack(spacing: 8) {
                 HStack {
                     Image(systemName: "flag.fill")
                         .foregroundColor(.blue)
+                        .font(.caption)
+                    
                     Text("韓国語")
                         .font(.caption)
                         .foregroundColor(.secondary)
+                    
                     Spacer()
+                    
+                    if let source = sentence.source {
+                        Text(source)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color(.systemGray5))
+                            .cornerRadius(4)
+                    }
                 }
                 
                 Text(sentence.korean ?? "")
-                    .font(.system(size: 28, weight: .medium))
+                    .font(.system(size: 18, weight: .medium))
                     .multilineTextAlignment(.leading)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, 8)
             }
+            .padding(16)
             .frame(maxWidth: .infinity)
-            .padding(24)
             .background(
                 LinearGradient(
                     colors: [Color.blue.opacity(0.1), Color.blue.opacity(0.05)],
@@ -186,98 +172,51 @@ struct SentenceStudyView: View {
                     endPoint: .bottomTrailing
                 )
             )
-            .cornerRadius(20)
-            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
             
-            // Japanese Translation Card (Tap to Reveal)
-            VStack(spacing: 16) {
-                HStack {
-                    Image(systemName: "flag.fill")
-                        .foregroundColor(.orange)
-                    Text("日本語訳")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
+            // Japanese translation (shown when expanded)
+            if isExpanded {
+                Divider()
+                    .padding(0)
                 
-                if isTranslationRevealed {
+                VStack(spacing: 8) {
+                    HStack {
+                        Image(systemName: "flag.fill")
+                            .foregroundColor(.orange)
+                            .font(.caption)
+                        
+                        Text("日本語訳")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                    }
+                    
                     Text(sentence.japanese ?? "")
-                        .font(.system(size: 24, weight: .regular))
+                        .font(.system(size: 16, weight: .regular))
                         .multilineTextAlignment(.leading)
                         .foregroundColor(.primary)
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.vertical, 8)
-                        .transition(.opacity.combined(with: .scale))
-                } else {
-                    VStack(spacing: 12) {
-                        Image(systemName: "hand.tap.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(.orange.opacity(0.6))
-                        
-                        Text("タップして日本語訳を表示")
-                            .font(.headline)
-                            .foregroundColor(.secondary)
+                }
+                .padding(16)
+                .frame(maxWidth: .infinity)
+                .background(Color(.systemGray6))
+                .transition(.opacity.combined(with: .move(edge: .bottom)))
+            }
+        }
+        .background(Color(.systemBackground))
+        .cornerRadius(12)
+        .shadow(color: .black.opacity(0.05), radius: 8, x: 0, y: 2)
+        .onTapGesture {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                if let id = sentence.id {
+                    if expandedSentenceIds.contains(id) {
+                        expandedSentenceIds.remove(id)
+                    } else {
+                        expandedSentenceIds.insert(id)
                     }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 40)
                 }
-            }
-            .frame(maxWidth: .infinity)
-            .frame(minHeight: 150)
-            .padding(24)
-            .background(
-                isTranslationRevealed
-                    ? Color(.systemBackground)
-                    : Color(.systemGray6)
-            )
-            .cornerRadius(20)
-            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: 5)
-            .onTapGesture {
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                    isTranslationRevealed = true
-                }
-            }
-        }
-        .padding()
-    }
-    
-    private var navigationButtons: some View {
-        HStack(spacing: 12) {
-            Button(action: previousSentence) {
-                Label("前へ", systemImage: "chevron.left")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-            }
-            .buttonStyle(.bordered)
-            .disabled(currentIndex == 0)
-            
-            Button(action: nextSentence) {
-                Label("次へ", systemImage: "chevron.right")
-                    .frame(maxWidth: .infinity)
-                    .padding()
-            }
-            .buttonStyle(.borderedProminent)
-            .tint(.blue)
-            .disabled(currentIndex >= allSentences.count - 1)
-        }
-    }
-    
-    private func nextSentence() {
-        withAnimation {
-            if currentIndex < allSentences.count - 1 {
-                currentIndex += 1
-                isTranslationRevealed = false
-            }
-        }
-    }
-    
-    private func previousSentence() {
-        withAnimation {
-            if currentIndex > 0 {
-                currentIndex -= 1
-                isTranslationRevealed = false
             }
         }
     }
@@ -287,7 +226,7 @@ struct SentenceStudyView: View {
         loadError = nil
         
         do {
-            print("📥 Fetching sentences from Appwrite...")
+            print("🔥 Fetching sentences from Appwrite...")
             let sentences = try await appwriteService.fetchSentencesFromCloud()
             
             await MainActor.run {
@@ -310,8 +249,6 @@ struct SentenceStudyView: View {
                 do {
                     try viewContext.save()
                     print("✅ Saved \(sentences.count) sentences to Core Data")
-                    currentIndex = 0
-                    isTranslationRevealed = false
                 } catch {
                     print("❌ Error saving sentences: \(error)")
                     loadError = "文章の保存に失敗しました"

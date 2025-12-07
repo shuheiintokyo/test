@@ -1,0 +1,646 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0598B8B22EDC216D007B7243 /* Appwrite in Frameworks */ = {isa = PBXBuildFile; productRef = 0598B8B12EDC216D007B7243 /* Appwrite */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0598B8652EDC1CED007B7243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0598B84A2EDC1CEA007B7243 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0598B8512EDC1CEA007B7243;
+			remoteInfo = KRTANGOS;
+		};
+		0598B86F2EDC1CED007B7243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0598B84A2EDC1CEA007B7243 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0598B8512EDC1CEA007B7243;
+			remoteInfo = KRTANGOS;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0598B8522EDC1CEA007B7243 /* KRTANGOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KRTANGOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0598B8642EDC1CED007B7243 /* KRTANGOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KRTANGOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0598B86E2EDC1CED007B7243 /* KRTANGOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KRTANGOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0598B9192EE52585007B7243 /* Exceptions for "KRTANGOS" folder in "KRTANGOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				KRTANGOS.xcdatamodeld,
+			);
+			target = 0598B8512EDC1CEA007B7243 /* KRTANGOS */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		0598B91C2EE5259F007B7243 /* Exceptions for "KRTANGOS" folder in "Copy Bundle Resources" phase from "KRTANGOS" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 0598B91A2EE5259B007B7243 /* Resources */;
+			membershipExceptions = (
+				KRTANGOS.xcdatamodeld,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		0598B8542EDC1CEA007B7243 /* KRTANGOS */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0598B9192EE52585007B7243 /* Exceptions for "KRTANGOS" folder in "KRTANGOS" target */,
+				0598B91C2EE5259F007B7243 /* Exceptions for "KRTANGOS" folder in "Copy Bundle Resources" phase from "KRTANGOS" target */,
+			);
+			path = KRTANGOS;
+			sourceTree = "<group>";
+		};
+		0598B8672EDC1CED007B7243 /* KRTANGOSTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = KRTANGOSTests;
+			sourceTree = "<group>";
+		};
+		0598B8712EDC1CED007B7243 /* KRTANGOSUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = KRTANGOSUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0598B84F2EDC1CEA007B7243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0598B8B22EDC216D007B7243 /* Appwrite in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B8612EDC1CED007B7243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B86B2EDC1CED007B7243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0598B8492EDC1CEA007B7243 = {
+			isa = PBXGroup;
+			children = (
+				0598B8542EDC1CEA007B7243 /* KRTANGOS */,
+				0598B8672EDC1CED007B7243 /* KRTANGOSTests */,
+				0598B8712EDC1CED007B7243 /* KRTANGOSUITests */,
+				0598B8532EDC1CEA007B7243 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0598B8532EDC1CEA007B7243 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0598B8522EDC1CEA007B7243 /* KRTANGOS.app */,
+				0598B8642EDC1CED007B7243 /* KRTANGOSTests.xctest */,
+				0598B86E2EDC1CED007B7243 /* KRTANGOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0598B8512EDC1CEA007B7243 /* KRTANGOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0598B8782EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOS" */;
+			buildPhases = (
+				0598B84F2EDC1CEA007B7243 /* Frameworks */,
+				0598B9072EE52467007B7243 /* Sources */,
+				0598B91A2EE5259B007B7243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0598B8542EDC1CEA007B7243 /* KRTANGOS */,
+			);
+			name = KRTANGOS;
+			packageProductDependencies = (
+				0598B8B12EDC216D007B7243 /* Appwrite */,
+			);
+			productName = KRTANGOS;
+			productReference = 0598B8522EDC1CEA007B7243 /* KRTANGOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0598B8632EDC1CED007B7243 /* KRTANGOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0598B87B2EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOSTests" */;
+			buildPhases = (
+				0598B8602EDC1CED007B7243 /* Sources */,
+				0598B8612EDC1CED007B7243 /* Frameworks */,
+				0598B8622EDC1CED007B7243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0598B8662EDC1CED007B7243 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0598B8672EDC1CED007B7243 /* KRTANGOSTests */,
+			);
+			name = KRTANGOSTests;
+			packageProductDependencies = (
+			);
+			productName = KRTANGOSTests;
+			productReference = 0598B8642EDC1CED007B7243 /* KRTANGOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		0598B86D2EDC1CED007B7243 /* KRTANGOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0598B87E2EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOSUITests" */;
+			buildPhases = (
+				0598B86A2EDC1CED007B7243 /* Sources */,
+				0598B86B2EDC1CED007B7243 /* Frameworks */,
+				0598B86C2EDC1CED007B7243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0598B8702EDC1CED007B7243 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				0598B8712EDC1CED007B7243 /* KRTANGOSUITests */,
+			);
+			name = KRTANGOSUITests;
+			packageProductDependencies = (
+			);
+			productName = KRTANGOSUITests;
+			productReference = 0598B86E2EDC1CED007B7243 /* KRTANGOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0598B84A2EDC1CEA007B7243 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					0598B8512EDC1CEA007B7243 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					0598B8632EDC1CED007B7243 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 0598B8512EDC1CEA007B7243;
+					};
+					0598B86D2EDC1CED007B7243 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 0598B8512EDC1CEA007B7243;
+					};
+				};
+			};
+			buildConfigurationList = 0598B84D2EDC1CEA007B7243 /* Build configuration list for PBXProject "KRTANGOS" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0598B8492EDC1CEA007B7243;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				0598B8812EDC1D33007B7243 /* XCRemoteSwiftPackageReference "sdk-for-apple" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0598B8532EDC1CEA007B7243 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0598B8512EDC1CEA007B7243 /* KRTANGOS */,
+				0598B8632EDC1CED007B7243 /* KRTANGOSTests */,
+				0598B86D2EDC1CED007B7243 /* KRTANGOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0598B8622EDC1CED007B7243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B86C2EDC1CED007B7243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B91A2EE5259B007B7243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0598B8602EDC1CED007B7243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B86A2EDC1CED007B7243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0598B9072EE52467007B7243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0598B8662EDC1CED007B7243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0598B8512EDC1CEA007B7243 /* KRTANGOS */;
+			targetProxy = 0598B8652EDC1CED007B7243 /* PBXContainerItemProxy */;
+		};
+		0598B8702EDC1CED007B7243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0598B8512EDC1CEA007B7243 /* KRTANGOS */;
+			targetProxy = 0598B86F2EDC1CED007B7243 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0598B8762EDC1CED007B7243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0598B8772EDC1CED007B7243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0598B8792EDC1CED007B7243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0598B87A2EDC1CED007B7243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		0598B87C2EDC1CED007B7243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KRTANGOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KRTANGOS";
+			};
+			name = Debug;
+		};
+		0598B87D2EDC1CED007B7243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOSTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/KRTANGOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/KRTANGOS";
+			};
+			name = Release;
+		};
+		0598B87F2EDC1CED007B7243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KRTANGOS;
+			};
+			name = Debug;
+		};
+		0598B8802EDC1CED007B7243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2U6HGW7K5L;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shuhei.krtangos.KRTANGOSUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = KRTANGOS;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0598B84D2EDC1CEA007B7243 /* Build configuration list for PBXProject "KRTANGOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0598B8762EDC1CED007B7243 /* Debug */,
+				0598B8772EDC1CED007B7243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0598B8782EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0598B8792EDC1CED007B7243 /* Debug */,
+				0598B87A2EDC1CED007B7243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0598B87B2EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0598B87C2EDC1CED007B7243 /* Debug */,
+				0598B87D2EDC1CED007B7243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0598B87E2EDC1CED007B7243 /* Build configuration list for PBXNativeTarget "KRTANGOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0598B87F2EDC1CED007B7243 /* Debug */,
+				0598B8802EDC1CED007B7243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0598B8812EDC1D33007B7243 /* XCRemoteSwiftPackageReference "sdk-for-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/appwrite/sdk-for-apple";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0598B8B12EDC216D007B7243 /* Appwrite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0598B8812EDC1D33007B7243 /* XCRemoteSwiftPackageReference "sdk-for-apple" */;
+			productName = Appwrite;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0598B84A2EDC1CEA007B7243 /* Project object */;
+}

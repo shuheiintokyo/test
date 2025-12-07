@@ -132,30 +132,60 @@ struct SentenceStudyView: View {
         let isExpanded = expandedSentenceIds.contains(sentence.id ?? UUID())
         
         return VStack(spacing: 0) {
-            // Korean sentence (always visible)
+            // Header with source and date
             VStack(spacing: 8) {
                 HStack {
-                    Image(systemName: "flag.fill")
-                        .foregroundColor(.blue)
-                        .font(.caption)
-                    
-                    Text("韓国語")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Image(systemName: "flag.fill")
+                                .foregroundColor(.blue)
+                                .font(.caption)
+                            
+                            Text("韓国語")
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
+                        
+                        // Source and Date Row
+                        HStack(spacing: 12) {
+                            if let source = sentence.source, !source.isEmpty {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "book.fill")
+                                        .font(.caption2)
+                                        .foregroundColor(.orange)
+                                    Text(source)
+                                        .font(.caption2)
+                                        .foregroundColor(.orange)
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.orange.opacity(0.1))
+                                .cornerRadius(4)
+                            }
+                            
+                            if let createdAt = sentence.createdAt {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "calendar")
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                    Text(formatDate(createdAt))
+                                        .font(.caption2)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.gray.opacity(0.1))
+                                .cornerRadius(4)
+                            }
+                            
+                            Spacer()
+                        }
+                    }
                     
                     Spacer()
-                    
-                    if let source = sentence.source {
-                        Text(source)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color(.systemGray5))
-                            .cornerRadius(4)
-                    }
                 }
                 
+                // Korean sentence
                 Text(sentence.korean ?? "")
                     .font(.system(size: 18, weight: .medium))
                     .multilineTextAlignment(.leading)
@@ -219,6 +249,12 @@ struct SentenceStudyView: View {
                 }
             }
         }
+    }
+    
+    private func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd"
+        return formatter.string(from: date)
     }
     
     private func loadSentencesFromCloud() async {
